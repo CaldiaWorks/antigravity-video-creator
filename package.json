@@ -1,0 +1,70 @@
+{
+  "name": "remotion-video-editor-v3",
+  "displayName": "Remotion Video Editor",
+  "description": "Video editing extension using Remotion",
+  "version": "0.1.0",
+  "publisher": "caldiaworks",
+  "private": true,
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:remotion.main"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "remotion": [
+        {
+          "type": "webview",
+          "id": "remotion.main",
+          "name": "Remotion"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "remotion",
+          "title": "Remotion",
+          "icon": "media/remotion.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "remotion-editor.openEditor",
+        "title": "Open Editor",
+        "category": "Remotion"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "package": "npm run build:webview && npm run compile",
+    "compile": "tsc -p ./",
+    "build:webview": "cd webview-ui && npm run build",
+    "watch": "npm run build:webview && tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.54.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.2"
+  }
+}
