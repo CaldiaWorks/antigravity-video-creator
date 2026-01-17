@@ -5,6 +5,14 @@
   "version": "0.1.0",
   "publisher": "caldiaworks",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CaldiaWorks/antigravity-video-creator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CaldiaWorks/antigravity-video-creator/issues"
+  },
+  "homepage": "https://github.com/CaldiaWorks/antigravity-video-creator#readme",
   "engines": {
     "vscode": "^1.72.0"
   },
