@@ -1,0 +1,109 @@
+.timeline-panel {
+    height: 120px; /* Taller panel */
+    background-color: var(--bg-panel);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.timeline-header {
+    height: 36px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.play-button {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+}
+
+.play-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.time-display {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.timeline-track-container {
+    flex: 1;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timeline-track {
+    position: relative;
+    height: 32px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-rail {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.timeline-progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.timeline-handle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+.timeline-cursor-line {
+    position: absolute;
+    top: 100%;
+    width: 2px;
+    height: 100vh; /* Extends down, visual only */
+    background-color: white;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.timeline-handle:hover {
+    transform: translateY(-50%) translateX(-50%) scale(1.1);
+}
