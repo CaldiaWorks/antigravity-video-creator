@@ -28,9 +28,10 @@ trigger: always_on
 ## Workflow
 
 1. Start work: Create a feature branch from `develop`.
-2. Save work (WIP): Commit changes frequently to save your progress.
-   - ✅ Frequency: Commit after every logical step or before answering user questions.
-   - ✅ Format: Use Conventional Commits. For incomplete work, prefix with `wip:`.
+2. Save work (WIP): Commit changes IMMEDIATELY after modification.
+   - ✅ Rule: NEVER leave a file in a modified state across multiple turns.
+   - ✅ Trigger: Before answering user questions or executing the next step, EXECUTE `git commit`.
+   - ✅ Format: Use Conventional Commits. For incomplete work, use `wip: ...`.
 3. Submit: Create PR to `develop` **ONLY when explicitly requested by the user**.
    - ❌ DO NOT auto-create PRs after commits. Wait for user confirmation.
    - ✅ PR title must follow conventional commits.
