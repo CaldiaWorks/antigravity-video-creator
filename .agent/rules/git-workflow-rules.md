@@ -32,6 +32,7 @@ trigger: always_on
 3. Submit: Create PR to `develop`.
    - ✅ PR title must follow conventional commits.
    - ✅ PR body should reference related issues.
+   - ⚠️ **Formatting**: When creating PRs via CLI, NEVER use literal `\n` in the string. Use `printf` or a body file to ensure newlines are rendered correctly.
 4. Verify: Merge to `main` via PR after `develop` verification.
 
 ## Agent Behavior
@@ -39,3 +40,4 @@ trigger: always_on
 - The Agent MUST NOT attempt to commit directly to `main` or `develop`.
 - If requested to do so, the Agent MUST STOP and ask for a feature branch.
 - The Agent SHOULD strictly follow the naming conventions and document the "WHY" in commit bodies.
+- When generating PRs via CLI, the Agent MUST ensure multi-line bodies are correctly formatted (e.g. using `gh pr create --body "$(printf 'Line 1\nLine 2')"` or `--body-file`).
