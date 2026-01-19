@@ -1,5 +1,6 @@
 import { Player, type PlayerRef } from '@remotion/player';
 import { useRef, useEffect, useState } from 'react';
+import Timeline from './Timeline';
 import './App.css';
 
 // VS Code API の型定義
@@ -211,21 +212,30 @@ function App() {
                     </div>
                 </div>
 
-				<Player
-					ref={playerRef}
-					component={MyComp}
+				<div className="player-wrapper">
+					<Player
+						ref={playerRef}
+						component={MyComp}
+						durationInFrames={config.durationInFrames}
+						compositionWidth={config.width}
+						compositionHeight={config.height}
+						fps={config.fps}
+						style={{
+							width: '100%',
+							maxWidth: '800px',
+							maxHeight: 'calc(100vh - 200px)',
+							aspectRatio: `${config.width} / ${config.height}`,
+							border: '1px solid #444',
+							boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)'
+						}}
+						controls
+					/>
+				</div>
+
+				<Timeline 
+					currentFrame={currentFrame}
 					durationInFrames={config.durationInFrames}
-					compositionWidth={config.width}
-					compositionHeight={config.height}
-					fps={config.fps}
-					style={{
-						width: '100%',
-						maxWidth: '800px',
-						aspectRatio: `${config.width} / ${config.height}`,
-						border: '1px solid #444',
-						boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)'
-					}}
-					controls
+					onSeek={seekTo}
 				/>
 			</div>
 		</div>
