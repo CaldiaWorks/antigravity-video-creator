@@ -28,8 +28,12 @@ trigger: always_on
 ## Workflow
 
 1. Start work: Create a feature branch from `develop`.
-2. Finish work: Commit changes following the Content Rules.
-3. Submit: Create PR to `develop`.
+2. Save work (WIP): Commit changes IMMEDIATELY after modification.
+   - ✅ Rule: NEVER leave a file in a modified state across multiple turns.
+   - ✅ Trigger: Before answering user questions or executing the next step, EXECUTE `git commit`.
+   - ✅ Format: Use Conventional Commits. For incomplete work, use `wip: ...`.
+3. Submit: Create PR to `develop` **ONLY when explicitly requested by the user**.
+   - ❌ DO NOT auto-create PRs after commits. Wait for user confirmation.
    - ✅ PR title must follow conventional commits.
    - ✅ PR body should reference related issues.
    - ⚠️ **Formatting**: When creating PRs via CLI, NEVER use literal `\n` in the string. Use `printf` or a body file to ensure newlines are rendered correctly.
@@ -37,6 +41,7 @@ trigger: always_on
 
 ## Agent Behavior
 
+- **PROHIBITED ACTIONS**: The Agent MUST NOT execute destructive git commands (`git reset`, `git clean`, `git checkout .`, `git restore`) without explicit user command.
 - The Agent MUST NOT attempt to commit directly to `main` or `develop`.
 - If requested to do so, the Agent MUST STOP and ask for a feature branch.
 - The Agent SHOULD strictly follow the naming conventions and document the "WHY" in commit bodies.
