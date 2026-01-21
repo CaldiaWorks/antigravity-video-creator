@@ -5,8 +5,9 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { Canvas } from './components/Canvas';
 import { Timeline } from './components/Timeline';
-import { slides } from './data/slides';
+// import { slides } from './data/slides'; // Removed static import
 import { SlideRenderer } from './components/Slide/SlideRenderer';
+import { SlideData } from './types/SlideTypes';
 import './App.css';
 
 // VS Code API declaration
@@ -27,11 +28,21 @@ interface CompositionConfig {
 
 type IncomingMessage = 
     | { type: 'updateConfig'; config: CompositionConfig }
-    | { type: 'requestStatus' };
+    | { type: 'requestStatus' }
+    | { type: 'updateSlides'; slides: SlideData[] };
 
 // Main Composition Component
-const SlideComposition: React.FC = () => {
+const SlideComposition: React.FC<{ slides: SlideData[] }> = ({ slides }) => {
     let currentFrame = 0;
+    
+    if (!slides || slides.length === 0) {
+        return (
+            <div style={{ flex: 1, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px', color: '#333' }}>
+                <p>No slides found. Create slides.json in your workspace.</p>
+            </div>
+        );
+    }
+
     return (
         <div style={{ flex: 1, backgroundColor: 'white', width: '100%', height: '100%' }}>
             {slides.map((slide, index) => {
@@ -47,17 +58,26 @@ const SlideComposition: React.FC = () => {
     );
 };
 
-// Calculate total duration
-const totalDuration = slides.reduce((acc, slide) => acc + slide.durationInFrames, 0);
-
 function App() {
     const playerRef = useRef<PlayerRef>(null);
+    const [slides, setSlides] = useState<SlideData[]>([]);
+    
+    // Calculate total duration from state
+    const totalDuration = useMemo(() => 
+        slides.reduce((acc, slide) => acc + (slide.durationInFrames || 90), 0) || 120
+    , [slides]);
+
     const [config, setConfig] = useState<CompositionConfig>({
-        durationInFrames: totalDuration, // Auto-calculated duration
+        durationInFrames: 120, // Will be updated by effect
         fps: 30,
         width: 1920,
         height: 1080,
     });
+    
+    // Config duration sync
+    useEffect(() => {
+        setConfig(c => ({...c, durationInFrames: totalDuration}));
+    }, [totalDuration]);
 
     const [currentFrame, setCurrentFrame] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -80,6 +100,9 @@ function App() {
                             }
                         });
                     }
+                    break;
+                case 'updateSlides':
+                    setSlides(message.slides);
                     break;
             }
         };
@@ -134,7 +157,8 @@ function App() {
                         <Player
                             ref={playerRef}
                             component={SlideComposition}
-                            durationInFrames={config.durationInFrames}
+                            inputProps={{ slides }}
+                            durationInFrames={Math.max(1, config.durationInFrames)}
                             compositionWidth={config.width}
                             compositionHeight={config.height}
                             fps={config.fps}

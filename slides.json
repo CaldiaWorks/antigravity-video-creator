@@ -1,0 +1,29 @@
+[
+  {
+    "type": "Title",
+    "title": "My Presentation",
+    "subtitle": "Loaded from slides.json",
+    "durationInFrames": 90
+  },
+  {
+    "type": "Content",
+    "title": "Workspace Config",
+    "items": [
+      "No rebuild needed",
+      "Just edit JSON",
+      "Instant preview"
+    ],
+    "durationInFrames": 120,
+    "style": {
+      "backgroundColor": "#f0f0f0",
+      "color": "#333"
+    }
+  },
+  {
+    "type": "Code",
+    "title": "Standard JSON",
+    "code": "[\n  { \"type\": \"Title\", ... }\n]",
+    "language": "json",
+    "durationInFrames": 150
+  }
+]
