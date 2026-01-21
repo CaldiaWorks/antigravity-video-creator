@@ -1,9 +1,12 @@
 import { Player, type PlayerRef } from '@remotion/player';
-import { useRef, useEffect, useState } from 'react';
+import { Sequence } from 'remotion';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { Canvas } from './components/Canvas';
 import { Timeline } from './components/Timeline';
+import { slides } from './data/slides';
+import { SlideRenderer } from './components/Slide/SlideRenderer';
 import './App.css';
 
 // VS Code API declaration
@@ -26,31 +29,31 @@ type IncomingMessage =
     | { type: 'updateConfig'; config: CompositionConfig }
     | { type: 'requestStatus' };
 
-// Sample Composition
-const MyComp: React.FC = () => {
+// Main Composition Component
+const SlideComposition: React.FC = () => {
+    let currentFrame = 0;
     return (
-        <div style={{ 
-            flex: 1, 
-            textAlign: 'center', 
-            fontSize: '2em', 
-            color: 'white', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            height: '100%',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: 800
-        }}>
-            <h1>Canva Style Editor</h1>
+        <div style={{ flex: 1, backgroundColor: 'white', width: '100%', height: '100%' }}>
+            {slides.map((slide, index) => {
+                const from = currentFrame;
+                currentFrame += slide.durationInFrames;
+                return (
+                    <Sequence key={index} from={from} durationInFrames={slide.durationInFrames}>
+                        <SlideRenderer slide={slide} />
+                    </Sequence>
+                );
+            })}
         </div>
     );
 };
 
+// Calculate total duration
+const totalDuration = slides.reduce((acc, slide) => acc + slide.durationInFrames, 0);
+
 function App() {
     const playerRef = useRef<PlayerRef>(null);
     const [config, setConfig] = useState<CompositionConfig>({
-        durationInFrames: 120,
+        durationInFrames: totalDuration, // Auto-calculated duration
         fps: 30,
         width: 1920,
         height: 1080,
@@ -130,7 +133,7 @@ function App() {
                     <Canvas width={config.width} height={config.height}>
                         <Player
                             ref={playerRef}
-                            component={MyComp}
+                            component={SlideComposition}
                             durationInFrames={config.durationInFrames}
                             compositionWidth={config.width}
                             compositionHeight={config.height}
