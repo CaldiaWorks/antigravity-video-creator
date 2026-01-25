@@ -1,5 +1,5 @@
 import React from 'react';
-import { CodeSlideProps } from '../../types/SlideTypes';
+import type { CodeSlideProps } from '../../../types/SlideTypes';
 
 export const CodeSlide: React.FC<CodeSlideProps> = ({ title, code, language, style }) => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentSlideProps } from '../../types/SlideTypes';
+import type { ContentSlideProps } from '../../../types/SlideTypes';
 
 export const ContentSlide: React.FC<ContentSlideProps> = ({ title, items, style }) => {
     return (

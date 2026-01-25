@@ -1,5 +1,5 @@
 import React from 'react';
-import { TitleSlideProps } from '../../types/SlideTypes';
+import type { TitleSlideProps } from '../../../types/SlideTypes';
 
 export const TitleSlide: React.FC<TitleSlideProps> = ({ title, subtitle, style }) => {
     return (

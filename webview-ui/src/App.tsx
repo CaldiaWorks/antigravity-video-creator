@@ -7,7 +7,7 @@ import { Canvas } from './components/Canvas';
 import { Timeline } from './components/Timeline';
 // import { slides } from './data/slides'; // Removed static import
 import { SlideRenderer } from './components/Slide/SlideRenderer';
-import { SlideData } from './types/SlideTypes';
+import type { SlideData } from './types/SlideTypes';
 import './App.css';
 
 // VS Code API declaration
