@@ -1,23 +1,17 @@
 import React from 'react';
+import {Series} from 'remotion';
+import {CaldiaWorks} from './slides/CaldiaWorks';
+import {Introduction} from './slides/Introduction';
 
 export const MyComposition: React.FC = () => {
-  return (
-    <div
-      style={{
-        flex: 1,
-        background: 'linear-gradient(135deg, #1e3a8a, #3b82f6)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        display: 'flex',
-        fontSize: 80,
-        color: 'white',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        padding: '0 40px',
-      }}
-    >
-      Antigravity x Remotion
-    </div>
-  );
+	return (
+		<Series>
+			<Series.Sequence durationInFrames={150} name="CaldiaWorks">
+				<CaldiaWorks />
+			</Series.Sequence>
+			<Series.Sequence durationInFrames={150} name="Introduction">
+				<Introduction />
+			</Series.Sequence>
+		</Series>
+	);
 };
