@@ -16,25 +16,32 @@
   "type": "module",
   "dependencies": {
     "@remotion/cli": "^4.0.409",
-    "@remotion/media": "4.0.409",
+    "@remotion/media": "^4.0.409",
     "@remotion/player": "^4.0.409",
     "@remotion/renderer": "^4.0.409",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
+    "chart.js": "^4.5.1",
     "react": "^19.2.3",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.3",
     "remotion": "^4.0.409",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@tailwindcss/postcss": "^4.1.18",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
+    "autoprefixer": "^10.4.24",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.2.0",
     "prettier": "^3.8.1",
+    "tailwindcss": "^4.1.18",
     "typescript-eslint": "^8.53.1"
   }
 }
