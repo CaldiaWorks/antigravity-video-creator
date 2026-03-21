@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antigravity Video Creator - Project Overview</title>
+<style>
+  :root {
+    --primary: #2962FF;
+    --secondary: #00B8D4;
+    --accent: #FFAB00;
+    --text: #37474F;
+    --bg: #F5F7FA;
+    --card: #FFFFFF;
+    --dark: #161B22;
+    --cyber-blue: #58A6FF;
+    --cyber-red: #F85149;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a2332 50%, #0d2137 100%);
+    color: #E6EDF3;
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(88,166,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(248,81,73,0.06) 0%, transparent 50%);
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+    background: linear-gradient(90deg, #E6EDF3, var(--cyber-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: #8B949E;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .tech-badges {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .tech-badge {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #8B949E;
+  }
+
+  /* Section */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 72px 0; }
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .section-desc {
+    text-align: center;
+    color: #78909C;
+    margin-bottom: 48px;
+    font-size: 1.05rem;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  }
+  .card svg { margin-bottom: 20px; }
+  .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .card p { color: #78909C; font-size: 0.95rem; }
+  .card .spec {
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card .spec span {
+    background: var(--bg);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #607D8B;
+  }
+
+  /* Feature list */
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  .feature-row:nth-child(even) { flex-direction: row-reverse; }
+  .feature-text { flex: 1; }
+  .feature-text h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .feature-text p { color: #78909C; }
+  .feature-visual { flex: 1; display: flex; justify-content: center; }
+
+  /* Architecture */
+  .arch-section { background: var(--dark); color: #E6EDF3; }
+  .arch-section .section-title { color: #E6EDF3; }
+  .arch-section .section-desc { color: #8B949E; }
+  .arch-svg-wrap { display: flex; justify-content: center; }
+
+  /* Footer */
+  footer {
+    background: var(--dark);
+    color: #8B949E;
+    text-align: center;
+    padding: 32px;
+    font-size: 0.9rem;
+  }
+  footer a { color: var(--cyber-blue); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .feature-row, .feature-row:nth-child(even) {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <svg width="80" height="80" viewBox="0 0 80 80" style="position:relative; margin-bottom:20px">
+    <defs>
+      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58A6FF"/>
+        <stop offset="100%" stop-color="#00B8D4"/>
+      </linearGradient>
+    </defs>
+    <rect x="4" y="4" width="72" height="72" rx="18" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
+    <polygon points="32,22 58,40 32,58" fill="url(#logoGrad)" opacity="0.9"/>
+  </svg>
+  <h1>Antigravity Video Creator</h1>
+  <p class="subtitle">React + Remotion によるプログラム駆動型の動画生成エンジン</p>
+  <div class="tech-badges">
+    <span class="tech-badge">React 19</span>
+    <span class="tech-badge">Remotion 4</span>
+    <span class="tech-badge">TypeScript</span>
+    <span class="tech-badge">Tailwind CSS</span>
+  </div>
+</header>
+
+<!-- ==================== COMPOSITIONS ==================== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">作成できる動画</h2>
+    <p class="section-desc">5種類のコンポジションが登録されており、用途に応じた動画を生成できます</p>
+
+    <div class="card-grid">
+
+      <!-- AI Governance -->
+      <div class="card">
+        <svg width="280" height="160" viewBox="0 0 280 160">
+          <rect width="280" height="160" rx="12" fill="#161B22"/>
+          <rect x="16" y="16" width="248" height="100" rx="8" fill="#0D1117"/>
+          <!-- Scene indicators -->
+          <rect x="24" y="28" width="24" height="16" rx="3" fill="#F85149" opacity="0.8"/>
+          <rect x="54" y="28" width="24" height="16" rx="3" fill="#F85149" opacity="0.65"/>
+          <rect x="84" y="28" width="24" height="16" rx="3" fill="#F85149" opacity="0.5"/>
+          <rect x="114" y="28" width="24" height="16" rx="3" fill="#58A6FF" opacity="0.8"/>
+          <rect x="144" y="28" width="24" height="16" rx="3" fill="#58A6FF" opacity="0.65"/>
+          <rect x="174" y="28" width="24" height="16" rx="3" fill="#58A6FF" opacity="0.5"/>
+          <rect x="204" y="28" width="24" height="16" rx="3" fill="#FFAB00" opacity="0.7"/>
+          <rect x="234" y="28" width="24" height="16" rx="3" fill="#FFAB00" opacity="0.5"/>
+          <!-- Text lines -->
+          <rect x="24" y="56" width="180" height="6" rx="3" fill="#E6EDF3" opacity="0.3"/>
+          <rect x="24" y="68" width="140" height="6" rx="3" fill="#E6EDF3" opacity="0.2"/>
+          <rect x="24" y="80" width="200" height="6" rx="3" fill="#E6EDF3" opacity="0.15"/>
+          <!-- Waveform -->
+          <polyline points="24,100 40,94 56,102 72,90 88,98 104,92 120,104 136,88 152,96 168,102 184,92 200,98 216,94 232,100 248,96"
+                    fill="none" stroke="#58A6FF" stroke-width="2" opacity="0.5"/>
+          <!-- Label -->
+          <text x="140" y="142" text-anchor="middle" fill="#8B949E" font-size="11">8 Scenes + BGM + Narration</text>
+        </svg>
+        <h3>AI Governance Video</h3>
+        <p>AIガバナンスをテーマにした8シーン構成のナレーション付き動画。サイバーパンク風の背景にBGMとシーンごとの音声を同期再生します。</p>
+        <div class="spec">
+          <span>1080 x 1920</span>
+          <span>30fps</span>
+          <span>~2分</span>
+          <span>縦型</span>
+        </div>
+      </div>
+
+      <!-- Workflow Video -->
+      <div class="card">
+        <svg width="280" height="160" viewBox="0 0 280 160">
+          <rect width="280" height="160" rx="12" fill="#F5F7FA"/>
+          <rect x="16" y="16" width="248" height="100" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+          <!-- Slide thumbnails -->
+          <rect x="26" y="30" width="50" height="32" rx="4" fill="#2962FF" opacity="0.15"/>
+          <rect x="82" y="30" width="50" height="32" rx="4" fill="#2962FF" opacity="0.25"/>
+          <rect x="138" y="30" width="50" height="32" rx="4" fill="#2962FF" opacity="0.4"/>
+          <rect x="194" y="30" width="50" height="32" rx="4" fill="#2962FF" opacity="0.6"/>
+          <!-- Process icons -->
+          <text x="51" y="51" text-anchor="middle" font-size="16">&#x1F442;</text>
+          <text x="107" y="51" text-anchor="middle" font-size="16">&#x1F9ED;</text>
+          <text x="163" y="51" text-anchor="middle" font-size="16">&#x1F4D6;</text>
+          <text x="219" y="51" text-anchor="middle" font-size="16">&#x1F4BB;</text>
+          <!-- Arrows -->
+          <line x1="76" y1="46" x2="82" y2="46" stroke="#2962FF" stroke-width="1.5" opacity="0.4"/>
+          <line x1="132" y1="46" x2="138" y2="46" stroke="#2962FF" stroke-width="1.5" opacity="0.4"/>
+          <line x1="188" y1="46" x2="194" y2="46" stroke="#2962FF" stroke-width="1.5" opacity="0.4"/>
+          <!-- Title bar -->
+          <rect x="26" y="74" width="120" height="6" rx="3" fill="#37474F" opacity="0.2"/>
+          <rect x="26" y="86" width="180" height="5" rx="2.5" fill="#37474F" opacity="0.12"/>
+          <rect x="26" y="96" width="100" height="5" rx="2.5" fill="#37474F" opacity="0.08"/>
+          <!-- Label -->
+          <text x="140" y="142" text-anchor="middle" fill="#78909C" font-size="11">7 Slides Presentation</text>
+        </svg>
+        <h3>Workflow Video</h3>
+        <p>4フェーズのワークフローを紹介する7枚構成のプレゼン動画。ヒアリングからビルドまでの流れを視覚的に伝えます。</p>
+        <div class="spec">
+          <span>1920 x 1080</span>
+          <span>30fps</span>
+          <span>35秒</span>
+          <span>横型</span>
+        </div>
+      </div>
+
+      <!-- Avatar Test -->
+      <div class="card">
+        <svg width="280" height="160" viewBox="0 0 280 160">
+          <rect width="280" height="160" rx="12" fill="#1a1a2e"/>
+          <!-- Avatar silhouette -->
+          <ellipse cx="140" cy="56" rx="28" ry="28" fill="#2962FF" opacity="0.2"/>
+          <ellipse cx="140" cy="56" rx="24" ry="24" fill="#2962FF" opacity="0.3"/>
+          <!-- Eyes -->
+          <ellipse cx="132" cy="52" rx="4" ry="5" fill="#E6EDF3" opacity="0.8"/>
+          <ellipse cx="148" cy="52" rx="4" ry="5" fill="#E6EDF3" opacity="0.8"/>
+          <!-- Mouth states -->
+          <rect x="133" y="62" width="14" height="6" rx="3" fill="#E6EDF3" opacity="0.6"/>
+          <!-- Sound waves -->
+          <path d="M100,56 Q95,44 100,32" fill="none" stroke="#00B8D4" stroke-width="2" opacity="0.3"/>
+          <path d="M92,56 Q85,40 92,24" fill="none" stroke="#00B8D4" stroke-width="2" opacity="0.2"/>
+          <path d="M180,56 Q185,44 180,32" fill="none" stroke="#00B8D4" stroke-width="2" opacity="0.3"/>
+          <path d="M188,56 Q195,40 188,24" fill="none" stroke="#00B8D4" stroke-width="2" opacity="0.2"/>
+          <!-- Breathing indicator -->
+          <path d="M112,90 L125,86 L133,92 L140,84 L147,92 L155,86 L168,90"
+                fill="none" stroke="#FFAB00" stroke-width="1.5" opacity="0.5"/>
+          <!-- State labels -->
+          <rect x="40" y="108" width="44" height="18" rx="4" fill="rgba(255,255,255,0.08)"/>
+          <text x="62" y="120" text-anchor="middle" fill="#8B949E" font-size="8">idle</text>
+          <rect x="92" y="108" width="44" height="18" rx="4" fill="rgba(88,166,255,0.15)"/>
+          <text x="114" y="120" text-anchor="middle" fill="#58A6FF" font-size="8">speaking</text>
+          <rect x="144" y="108" width="44" height="18" rx="4" fill="rgba(255,171,0,0.15)"/>
+          <text x="166" y="120" text-anchor="middle" fill="#FFAB00" font-size="8">blink</text>
+          <rect x="196" y="108" width="44" height="18" rx="4" fill="rgba(0,184,212,0.15)"/>
+          <text x="218" y="120" text-anchor="middle" fill="#00B8D4" font-size="8">breath</text>
+          <!-- Label -->
+          <text x="140" y="146" text-anchor="middle" fill="#8B949E" font-size="11">Audio-Reactive Avatar</text>
+        </svg>
+        <h3>Avatar Test</h3>
+        <p>音声に反応する2Dアバターのテスト動画。リップシンク、まばたき、呼吸アニメーション、バウンスエフェクトを確認できます。</p>
+        <div class="spec">
+          <span>1080 x 1080</span>
+          <span>30fps</span>
+          <span>15秒</span>
+          <span>正方形</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AVATAR FEATURE ==================== -->
+<section style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Avatar コンポーネント</h2>
+    <p class="section-desc">音声データからリアルタイムにアニメーションを生成する再利用可能なコンポーネント</p>
+
+    <div class="feature-row">
+      <div class="feature-visual">
+        <svg width="360" height="280" viewBox="0 0 360 280">
+          <defs>
+            <linearGradient id="breathGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#2962FF" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#2962FF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Background -->
+          <rect width="360" height="280" rx="16" fill="#F5F7FA"/>
+
+          <!-- Audio waveform -->
+          <text x="20" y="28" fill="#78909C" font-size="10" font-weight="600">AUDIO INPUT</text>
+          <polyline points="20,50 40,42 60,55 80,35 100,48 120,38 140,52 160,30 180,45 200,50 220,36 240,48 260,40 280,52 300,44 320,50 340,46"
+                    fill="none" stroke="#2962FF" stroke-width="2" opacity="0.6"/>
+          <line x1="20" y1="50" x2="340" y2="50" stroke="#2962FF" stroke-width="0.5" opacity="0.2"/>
+
+          <!-- Arrow down -->
+          <polygon points="180,65 175,60 185,60" fill="#78909C" opacity="0.4"/>
+
+          <!-- Processing box -->
+          <rect x="60" y="72" width="240" height="40" rx="8" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+          <text x="180" y="88" text-anchor="middle" fill="#37474F" font-size="10" font-weight="600">16 samples avg</text>
+          <text x="180" y="102" text-anchor="middle" fill="#78909C" font-size="9">volume > threshold(0.05) ?</text>
+
+          <!-- Arrow down -->
+          <polygon points="180,120 175,115 185,115" fill="#78909C" opacity="0.4"/>
+
+          <!-- 4-state grid -->
+          <g transform="translate(40, 128)">
+            <!-- idle -->
+            <rect x="0" y="0" width="64" height="64" rx="8" fill="#E8EAF6" stroke="#C5CAE9" stroke-width="1"/>
+            <circle cx="32" cy="26" r="14" fill="#9FA8DA"/>
+            <circle cx="27" cy="24" r="2.5" fill="#37474F"/>
+            <circle cx="37" cy="24" r="2.5" fill="#37474F"/>
+            <line x1="28" y1="32" x2="36" y2="32" stroke="#37474F" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="32" y="58" text-anchor="middle" fill="#5C6BC0" font-size="9" font-weight="600">idle</text>
+
+            <!-- speaking -->
+            <rect x="74" y="0" width="64" height="64" rx="8" fill="#E3F2FD" stroke="#90CAF9" stroke-width="1"/>
+            <circle cx="106" cy="26" r="14" fill="#64B5F6"/>
+            <circle cx="101" cy="24" r="2.5" fill="#37474F"/>
+            <circle cx="111" cy="24" r="2.5" fill="#37474F"/>
+            <ellipse cx="106" cy="33" rx="5" ry="4" fill="#37474F" opacity="0.7"/>
+            <text x="106" y="58" text-anchor="middle" fill="#1976D2" font-size="9" font-weight="600">speaking</text>
+
+            <!-- blinkIdle -->
+            <rect x="148" y="0" width="64" height="64" rx="8" fill="#FFF3E0" stroke="#FFE0B2" stroke-width="1"/>
+            <circle cx="180" cy="26" r="14" fill="#FFB74D"/>
+            <line x1="174" y1="24" x2="180" y2="24" stroke="#37474F" stroke-width="2" stroke-linecap="round"/>
+            <line x1="184" y1="24" x2="190" y2="24" stroke="#37474F" stroke-width="2" stroke-linecap="round"/>
+            <line x1="176" y1="32" x2="184" y2="32" stroke="#37474F" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="180" y="58" text-anchor="middle" fill="#E65100" font-size="9" font-weight="600">blinkIdle</text>
+
+            <!-- blinkSpeaking -->
+            <rect x="222" y="0" width="64" height="64" rx="8" fill="#E0F7FA" stroke="#80DEEA" stroke-width="1"/>
+            <circle cx="254" cy="26" r="14" fill="#4DD0E1"/>
+            <line x1="248" y1="24" x2="254" y2="24" stroke="#37474F" stroke-width="2" stroke-linecap="round"/>
+            <line x1="258" y1="24" x2="264" y2="24" stroke="#37474F" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="254" cy="33" rx="5" ry="4" fill="#37474F" opacity="0.7"/>
+            <text x="254" y="58" text-anchor="middle" fill="#00838F" font-size="9" font-weight="600">blinkSpeak</text>
+          </g>
+
+          <!-- Bottom labels -->
+          <g transform="translate(40, 206)">
+            <rect x="0" y="0" width="86" height="28" rx="6" fill="#E8F5E9"/>
+            <text x="43" y="12" text-anchor="middle" fill="#2E7D32" font-size="8" font-weight="600">Breathing</text>
+            <text x="43" y="22" text-anchor="middle" fill="#4CAF50" font-size="7">sin(f/20) * 0.07</text>
+
+            <rect x="96" y="0" width="86" height="28" rx="6" fill="#FCE4EC"/>
+            <text x="139" y="12" text-anchor="middle" fill="#C62828" font-size="8" font-weight="600">Bounce</text>
+            <text x="139" y="22" text-anchor="middle" fill="#E57373" font-size="7">delta > 0.06</text>
+
+            <rect x="192" y="0" width="86" height="28" rx="6" fill="#F3E5F5"/>
+            <text x="235" y="12" text-anchor="middle" fill="#6A1B9A" font-size="8" font-weight="600">Blink</text>
+            <text x="235" y="22" text-anchor="middle" fill="#AB47BC" font-size="7">30% per sec</text>
+          </g>
+
+          <!-- veadotube label -->
+          <text x="180" y="256" text-anchor="middle" fill="#BDBDBD" font-size="9">veadotube mini 4-state format</text>
+        </svg>
+      </div>
+      <div class="feature-text">
+        <h3>4ステート画像切り替え</h3>
+        <p>veadotube mini の4状態構造に準拠し、<strong>idle / speaking / blinkIdle / blinkSpeaking</strong> の画像を音声データとフレーム位置から自動選択します。</p>
+        <br>
+        <h3>3種のアニメーション</h3>
+        <p><strong>呼吸</strong>：サイン波でY軸を最大7%伸縮。<strong>バウンス</strong>：音量の急激な立ち上がりで最大15%拡大。<strong>まばたき</strong>：秒ごとに30%の確率で4フレーム間発動する決定論的ロジック。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ARCHITECTURE ==================== -->
+<section class="arch-section">
+  <div class="container">
+    <h2 class="section-title">プロジェクト構成</h2>
+    <p class="section-desc">Remotion の Composition をルートとし、スライドとシーンを子要素として構成</p>
+
+    <div class="arch-svg-wrap">
+      <svg width="700" height="380" viewBox="0 0 700 380">
+        <defs>
+          <linearGradient id="nodeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2962FF" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#2962FF" stop-opacity="0.08"/>
+          </linearGradient>
+          <linearGradient id="nodeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F85149" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#F85149" stop-opacity="0.08"/>
+          </linearGradient>
+          <linearGradient id="nodeGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFAB00" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#FFAB00" stop-opacity="0.08"/>
+          </linearGradient>
+          <linearGradient id="nodeGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00B8D4" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#00B8D4" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Entry -->
+        <rect x="280" y="10" width="140" height="36" rx="18" fill="url(#nodeGrad1)" stroke="#58A6FF" stroke-width="1.5"/>
+        <text x="350" y="33" text-anchor="middle" fill="#58A6FF" font-size="12" font-weight="600">index.ts (entry)</text>
+
+        <!-- Arrow -->
+        <line x1="350" y1="46" x2="350" y2="65" stroke="#58A6FF" stroke-width="1" opacity="0.5"/>
+        <polygon points="350,70 346,64 354,64" fill="#58A6FF" opacity="0.5"/>
+
+        <!-- Root -->
+        <rect x="260" y="72" width="180" height="40" rx="10" fill="url(#nodeGrad1)" stroke="#58A6FF" stroke-width="1.5"/>
+        <text x="350" y="97" text-anchor="middle" fill="#58A6FF" font-size="13" font-weight="700">Root.tsx</text>
+
+        <!-- Branches from Root -->
+        <!-- AIGovernance -->
+        <line x1="300" y1="112" x2="120" y2="155" stroke="#F85149" stroke-width="1" opacity="0.4"/>
+        <rect x="30" y="155" width="180" height="36" rx="8" fill="url(#nodeGrad2)" stroke="#F85149" stroke-width="1.2"/>
+        <text x="120" y="178" text-anchor="middle" fill="#F85149" font-size="11" font-weight="600">AIGovernanceVideo</text>
+
+        <!-- WorkflowVideo -->
+        <line x1="350" y1="112" x2="350" y2="155" stroke="#FFAB00" stroke-width="1" opacity="0.4"/>
+        <rect x="260" y="155" width="180" height="36" rx="8" fill="url(#nodeGrad3)" stroke="#FFAB00" stroke-width="1.2"/>
+        <text x="350" y="178" text-anchor="middle" fill="#FFAB00" font-size="11" font-weight="600">WorkflowVideo</text>
+
+        <!-- AvatarTest -->
+        <line x1="400" y1="112" x2="570" y2="155" stroke="#00B8D4" stroke-width="1" opacity="0.4"/>
+        <rect x="490" y="155" width="180" height="36" rx="8" fill="url(#nodeGrad4)" stroke="#00B8D4" stroke-width="1.2"/>
+        <text x="580" y="178" text-anchor="middle" fill="#00B8D4" font-size="11" font-weight="600">AvatarTestVideo</text>
+
+        <!-- AI Governance Scenes -->
+        <line x1="120" y1="191" x2="120" y2="215" stroke="#F85149" stroke-width="1" opacity="0.3"/>
+        <g transform="translate(20, 218)">
+          <rect x="0" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.15"/>
+          <text x="12" y="14" text-anchor="middle" fill="#F85149" font-size="7">S1</text>
+          <rect x="28" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.2"/>
+          <text x="40" y="14" text-anchor="middle" fill="#F85149" font-size="7">S2</text>
+          <rect x="56" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.25"/>
+          <text x="68" y="14" text-anchor="middle" fill="#F85149" font-size="7">S3</text>
+          <rect x="84" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.3"/>
+          <text x="96" y="14" text-anchor="middle" fill="#F85149" font-size="7">S4</text>
+          <rect x="112" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.35"/>
+          <text x="124" y="14" text-anchor="middle" fill="#F85149" font-size="7">S5</text>
+          <rect x="140" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.4"/>
+          <text x="152" y="14" text-anchor="middle" fill="#F85149" font-size="7">S6</text>
+          <rect x="168" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.45"/>
+          <text x="180" y="14" text-anchor="middle" fill="#F85149" font-size="7">S7</text>
+          <rect x="196" y="0" width="24" height="20" rx="4" fill="#F85149" opacity="0.5"/>
+          <text x="208" y="14" text-anchor="middle" fill="#F85149" font-size="7">S8</text>
+        </g>
+        <text x="120" y="258" text-anchor="middle" fill="#8B949E" font-size="9">8 Scenes + CyberBackground</text>
+
+        <!-- Workflow Slides -->
+        <line x1="350" y1="191" x2="350" y2="215" stroke="#FFAB00" stroke-width="1" opacity="0.3"/>
+        <g transform="translate(270, 218)">
+          <rect x="0" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.15"/>
+          <text x="10" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">1</text>
+          <rect x="24" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.2"/>
+          <text x="34" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">2</text>
+          <rect x="48" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.25"/>
+          <text x="58" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">3</text>
+          <rect x="72" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.3"/>
+          <text x="82" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">4</text>
+          <rect x="96" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.35"/>
+          <text x="106" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">5</text>
+          <rect x="120" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.4"/>
+          <text x="130" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">6</text>
+          <rect x="144" y="0" width="20" height="20" rx="4" fill="#FFAB00" opacity="0.45"/>
+          <text x="154" y="14" text-anchor="middle" fill="#FFAB00" font-size="7">7</text>
+        </g>
+        <text x="350" y="258" text-anchor="middle" fill="#8B949E" font-size="9">7 Slides (Hero ~ Footer)</text>
+
+        <!-- Avatar component -->
+        <line x1="580" y1="191" x2="580" y2="215" stroke="#00B8D4" stroke-width="1" opacity="0.3"/>
+        <rect x="510" y="218" width="140" height="32" rx="6" fill="url(#nodeGrad4)" stroke="#00B8D4" stroke-width="1"/>
+        <text x="580" y="239" text-anchor="middle" fill="#00B8D4" font-size="10" font-weight="600">Avatar Component</text>
+        <text x="580" y="270" text-anchor="middle" fill="#8B949E" font-size="9">Audio-reactive 2D character</text>
+
+        <!-- Audio layer -->
+        <rect x="100" y="290" width="500" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="350" y="313" text-anchor="middle" fill="#8B949E" font-size="10">Audio Layer: BGM + Per-scene narration (WAV) + Remotion audio visualization</text>
+
+        <!-- Tech footer -->
+        <text x="350" y="365" text-anchor="middle" fill="#484f58" font-size="10">React 19 + Remotion 4 + TypeScript + Tailwind CSS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW TO USE ==================== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">使い方</h2>
+    <p class="section-desc">Remotion の標準コマンドでプレビュー・レンダリングが可能です</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="text-align:center">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="28" fill="#E3F2FD"/>
+          <rect x="20" y="18" width="24" height="28" rx="3" fill="none" stroke="#2962FF" stroke-width="2"/>
+          <line x1="25" y1="26" x2="39" y2="26" stroke="#2962FF" stroke-width="1.5" opacity="0.4"/>
+          <line x1="25" y1="32" x2="36" y2="32" stroke="#2962FF" stroke-width="1.5" opacity="0.3"/>
+          <line x1="25" y1="38" x2="33" y2="38" stroke="#2962FF" stroke-width="1.5" opacity="0.2"/>
+        </svg>
+        <h3>1. Install</h3>
+        <p style="font-family:monospace; background:var(--bg); padding:8px 12px; border-radius:8px; margin-top:12px; font-size:0.85rem;">npm install</p>
+      </div>
+
+      <div class="card" style="text-align:center">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="28" fill="#E8F5E9"/>
+          <polygon points="28,20 28,44 46,32" fill="#4CAF50" opacity="0.7"/>
+        </svg>
+        <h3>2. Preview</h3>
+        <p style="font-family:monospace; background:var(--bg); padding:8px 12px; border-radius:8px; margin-top:12px; font-size:0.85rem;">npx remotion studio</p>
+      </div>
+
+      <div class="card" style="text-align:center">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="28" fill="#FFF3E0"/>
+          <rect x="18" y="22" width="28" height="20" rx="3" fill="none" stroke="#FF9800" stroke-width="2"/>
+          <polygon points="30,28 30,38 38,33" fill="#FF9800" opacity="0.7"/>
+        </svg>
+        <h3>3. Render</h3>
+        <p style="font-family:monospace; background:var(--bg); padding:8px 12px; border-radius:8px; margin-top:12px; font-size:0.85rem;">npx remotion render</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <p>Antigravity Video Creator &mdash; <a href="https://github.com/CaldiaWorks/antigravity-video-creator">GitHub Repository</a></p>
+</footer>
+
+</body>
+</html>
