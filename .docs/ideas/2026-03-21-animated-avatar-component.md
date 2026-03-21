@@ -1,68 +1,172 @@
-# Remotionアバターコンポーネント（Animated Avatar）
+# Remotion PNGtuberコンポーネント（Animated Avatar）
 
 - Date: 2026-03-21
 - Status: Draft
 
 ## What
 
-Remotion動画内のスライドなどに配置する、汎用的で再利用可能なアバターコンポーネント（Avatar.tsx）を作成する。
-いわゆる「PngTuber」的な手法を採用し、提供されたPNG画像（キャラクター_ちびアバター.png など）のパーツ分割画像素材を組み合わせ、`useCurrentFrame()`ベースの決定論的アニメーションを追加する。
-主な機能として、瞬き、音声ボリュームに連動した口パク（リップシンク）、呼吸ループモーションと音声連動の跳ねるモーション（リアクション）の複合型を実装する。また、音声データ（音量）が存在しない場合は自然な呼吸のみを行うフォールバックを持たせ、複数のキャラクター設定（複数のアバター画像）を自由に選択・切り替えられる設計とする。
+Remotionでveadotube miniのようなPNGtuber（音声反応アバター）コンポーネントを作成する。
+
+`@remotion/media-utils` の `useAudioData` と `visualizeAudio` を用いて、コンポーネント内部で音声ファイルの音量をフレームごとに解析する。veadotube miniと同様に、目の開閉 × 口の開閉の組み合わせによる4枚の完成画像（idle / speaking / blinkIdle / blinkSpeaking）を、音量閾値と瞬きタイミングに基づいて切り替える方式でリップシンクと瞬きを実現する。リアルタイムのマイク入力ではなく、配置済みの音声ファイルを対象とする。
+
+加えて、呼吸ループや音量閾値超え時のBounce（跳ね）リアクションなどのモーションにより、アバターに生命感を持たせる。
+
+複数キャラクター対応で、各アバターが個別の音声ソースに反応する自己完結型コンポーネントとして設計する。
 
 ## Why
 
-長時間のスライドプレゼンテーション動画や解説動画において、静止画だけでなく動きのあるアバター（PngTuber的な表現）を画面の隅に配置することで、視聴者の注目を引きつけ、リッチで退屈させない動画体験を提供する。
-加えて、将来的にキャラクターのバリエーションや「喜怒哀楽」などの表情差分パーツが増えた際にも、コンポーネントの完全な作り直し（リファクタリング）を避ける必要があるため。初期設計の段階から、複数キャラクターの追加やStateベースの拡張機能を見据えた強固な仕組みを定義し、開発および運用の効率を最大化する。
+スライドプレゼンテーション動画や解説動画において、動きのあるアバターを画面に配置することで、視聴者の注目を引きつけ、退屈させない動画体験を提供する。
+
+将来的にキャラクターのバリエーションや表情差分パーツが増えた際にも作り直しを避けるため、初期設計の段階から拡張を見据えた構造にしておく。
 
 ## Scope
 
 ### In Scope
 
-- アバターコンポーネント（Avatar.tsx）の新規作成と機能設計
-- **複数キャラ対応**: props等でキャラクター名や構成を渡すだけで、対応するパーツ画像群がロード・配置される抽象化レイヤーの構築
-- **将来を見据えた拡張状態（State）設計**: 将来の「喜怒哀楽」などの表情差分やモーション追加を見据えた、状態管理とアセットマッピングの基礎設計（作り直しを防ぐため）
-- 意図的に**音声データが存在しない（無音）場合**を考慮し、呼吸のループアニメーションのみを再生するフォールバック機能
-- 「目」「口」「体」などにパーツ分割された画像の統合およびアニメーション適用
-- **画像素材の厳密な制作ルール策定**: Remotion上でのレイヤー合成時に位置がズレる・破綻するのを防ぐため、将来追加される表情差分も含め、全キャラクターの全パーツを必ず「同一キャンバスサイズ・同一アンカー（基準点）」で書き出すことを設計要件として徹底する
-- フレームベース（`useCurrentFrame`）での一定間隔の瞬きアニメーション
-- フレームベースでの連続的な呼吸アニメーション（`interpolate` とSineカーブを利用）
-- 外部（親コンポーネント等）から渡される「volume（0-1等）」に基づく口の開閉と、弾む（Bounce）リアクションの複合実装
-- **Remotionレンダリングモデル（独立フレーム計算）への適合**: アニメーション（特にBounce等）において、「前のフレームの音量との差」のようなフレーム間の状態依存処理を決して行わない。Remotionが**「任意のフレームを独立して・順不同で並列レンダリングする」**仕様に完全準拠し、各フレームが自己完結して正しい見た目を計算できる純粋関数的な仕組み（現在の自身の時間のSpring値等）を構築する。
-- AudioContext（Props/Hook注入型）によるデータ受け渡しアーキテクチャ
+- アバターコンポーネント（Avatar.tsx）の新規作成
+- `@remotion/media-utils` の `useAudioData` / `visualizeAudio` によるコンポーネント内部での音声解析
+- veadotube mini方式の4枚完成画像切替（目開閉 × 口開閉 = idle / speaking / blinkIdle / blinkSpeaking）
+- 音量の閾値判定による口パク（idle ↔ speaking、blinkIdle ↔ blinkSpeaking の切替）
+- `useCurrentFrame()` ベースの瞬きアニメーション（決定論的擬似ランダム間隔で idle/speaking ↔ blinkIdle/blinkSpeaking を切替）
+- `useCurrentFrame()` ベースの呼吸ループアニメーション（Sineカーブ）
+- 音量が閾値を超えた際のBounce（跳ね）リアクション
+- 複数キャラクター対応（Propsでキャラクター定義を渡して画像セットを切替）
+- 各アバターが個別の音声ソースに反応する自己完結型の設計
+- 画像素材の制作ルール策定（4枚すべてを同一キャンバスサイズ・同一アンカーで書き出す）
+- 将来の表情差分（喜怒哀楽等）追加を見据えた拡張可能な構造設計
 
 ### Out of Scope
 
-- 初回実装における**実際の表情差分（喜怒哀楽）素材の導入・適用**（※前述の通り「アーキテクチャ・設計としてのサポート」はIn Scopeに含むが、データとしての実装・テストは後回しのMVPとする）
-- 視線トラッキングやマウス・キーボード操作等への連動（非インタラクティブな動画出力用途のため）
-- Live2DやSpine等のサードパーティモデリングツールの専用インポート機能（PNGパーツの合成に特化）
+- 実際の表情差分素材の導入・適用（アーキテクチャとしてのサポートのみ）
+- 視線トラッキングやマウス・キーボード操作との連動（動画出力用途のため）
+- Live2DやSpine等のサードパーティモデリングツール連携
 
 ## Stakeholders
 
-- Target users: スライド動画や技術解説動画の視聴者
-- Affected systems: `src/components` 内のGUIコンポーネント群、動画レンダリング用Root設定、および `useAudioData` を扱うオーディオ解析レイヤー
+- Target users: スライド動画・技術解説動画の視聴者、動画制作者
+- Affected systems: `src/components/` 配下のコンポーネント群、Root.tsx のComposition設定
 
 ## Approaches
 
-### Approach 1: AudioContext（Props/Hook）注入型 (Recommended)
+### Approach 1: 自己完結型コンポーネント (Recommended)
 
-音声データのフェッチや音量計算などの重い解析処理はアバター外（親コンポーネントや専用フック）で行い、アバターコンポーネントには計算済みの現在ボリューム値だけを渡す設計。
-
-**Feasibility Evaluation:**
-
-- **Differentiation**: 汎用性が非常に高く、オーディオソースの切り替えやBGM混在時にも影響を受けずに利用可能。
-- **Technical risks**: 呼び出し側（親コンポーネント）でのボイラープレート記述が増加する。また、「独立フレーム計算でのみアニメーション（弾む動き等）を構築しなければならない」という要件により、実装のパラダイム難易度が上がる。
-- **Pre-mortem**: もしこのプロジェクトが失敗するとすれば、「画像素材のアンカー統一ルールが守られず座標のズレが泥沼化する」か、あるいは「フレーム間の状態遷移に依存したアニメーション（useState等の持ち越し）を組んでしまい、Remotionの並列レンダリング出力で動きがカクつき支離滅裂になる」ことが原因となる。
-
-### Approach 2: 自己完結型アバターコンポーネント
-
-アバター自体に機能を持たせ、音声パスを渡して内部で `useAudioData` を完結・同期して音量を取得させる手法。
+音声パスをPropsで受け取り、コンポーネント内部で `useAudioData` / `visualizeAudio` による音声解析を完結させる。各アバターが独立して自分の音声ソースを解析・反応する。
 
 **Feasibility Evaluation:**
 
-- **Differentiation**: 親要素に依存せず、どこでも `<Avatar>` の1タグだけで配置できる圧倒的な手軽さ。
-- **Technical risks**: 一つの動画やシーンに複数アバターが設置された場合やシーン切り替えが激しい場合、冗長な音声バッファの解析が走りレンダリング時のパフォーマンスを阻害しやすい。
-- **Pre-mortem**: もし失敗するとすれば、Remotionが一括で複数フレームをまたいでレンダリングする際、大量の音声解析プロセスによってブラウザのメモリが枯渇し、タイムアウトやクラッシュを引き起こすリスク。
+- **Differentiation**: `<Avatar audioSrc={...} characterDef={...} />` の1タグで配置が完結する。音声解析の外部依存がなく、使う側のコードが最小
+- **Technical risks**: Remotionの並列レンダリング仕様への適合が必要。フレーム間の状態依存（useState等の持ち越し）を避け、`useCurrentFrame()` からの純粋計算でアニメーションを構築する必要がある
+- **Pre-mortem**: 失敗するとすれば、画像素材のアンカー統一ルールが守られず座標のズレが泥沼化するか、フレーム間の状態遷移に依存したアニメーションを組んでしまいRemotionの並列レンダリングで破綻すること
+
+### Approach 2: Hook分離型
+
+音声解析を `useAvatarAudio(audioSrc)` のようなカスタムHookに切り出し、アバターコンポーネントはvolume値のみPropsで受け取る。
+
+**Feasibility Evaluation:**
+
+- **Differentiation**: 音声解析とUI描画の責務が分離される。テスト時にvolume値を直接渡せる
+- **Technical risks**: 使う側で毎回Hookを呼んでアバターに渡す記述が必要になる。アバターごとに異なる音声を扱う場合、Hookとコンポーネントが常にセットで使われるため、分離のメリットが薄い
+- **Pre-mortem**: 「分離したのに結局セットでしか使わない」という過剰設計に陥り、使う側のボイラープレートが増えるだけで終わる
 
 ## Decision
 
-上記の比較により、今回のユースケースにおける再利用性と、Remotion特有のレンダリングパフォーマンスの安全性が高い **Approach 1: AudioContext（Props/Hook）注入型** を採用する。
+**Approach 1: 自己完結型コンポーネント** を採用する。
+
+各アバターが個別の音声ソースに反応する要件において、コンポーネントが自分の音声を内部で解析する構成が最も自然であり、使う側のコードも最小に保てる。Hook分離は現時点では過剰設計であり、必要になった時点で検討すれば十分である。
+
+---
+
+### 参考: 基本的な実装イメージ
+
+veadotube miniと同様に、`@remotion/media-utils` の `useAudioData` と `visualizeAudio` で現在のフレームの音量を取得し、音量閾値と瞬きタイミングから4枚の完成画像を切り替える。
+
+```tsx
+import React from 'react';
+import { Img, useCurrentFrame, useVideoConfig } from 'remotion';
+import { useAudioData, visualizeAudio } from '@remotion/media-utils';
+
+interface CharacterDef {
+  idle: string;          // 目開き + 口閉じ
+  speaking: string;      // 目開き + 口開き
+  blinkIdle: string;     // 目閉じ + 口閉じ
+  blinkSpeaking: string; // 目閉じ + 口開き
+}
+
+interface PNGTuberProps {
+  audioSrc: string;
+  characterDef: CharacterDef;
+  threshold?: number;    // 音声反応のしきい値（デフォルト: 0.1）
+}
+
+export const PNGTuber: React.FC<PNGTuberProps> = ({
+  audioSrc,
+  characterDef,
+  threshold = 0.1,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  const audioData = useAudioData(audioSrc);
+
+  if (!audioData) {
+    return null;
+  }
+
+  const audioVisualizer = visualizeAudio({
+    fps,
+    frame,
+    audioData,
+    numberOfSamples: 16,
+  });
+
+  const currentVolume =
+    audioVisualizer.reduce((acc, val) => acc + val, 0) / audioVisualizer.length;
+
+  const isSpeaking = currentVolume > threshold;
+  const isBlinking = /* deterministic pseudo-random blink logic */ false;
+
+  const src = isBlinking
+    ? (isSpeaking ? characterDef.blinkSpeaking : characterDef.blinkIdle)
+    : (isSpeaking ? characterDef.speaking : characterDef.idle);
+
+  return (
+    <Img
+      src={src}
+      style={{
+        width: 400,
+        height: 400,
+        objectFit: 'contain',
+      }}
+    />
+  );
+};
+```
+
+呼び出し例:
+
+```tsx
+import { AbsoluteFill, Audio } from 'remotion';
+import { PNGTuber } from './PNGTuber';
+
+import voiceAudio from './assets/voice.mp3';
+
+const characterA: CharacterDef = {
+  idle: '/assets/charA-idle.png',
+  speaking: '/assets/charA-speaking.png',
+  blinkIdle: '/assets/charA-blink-idle.png',
+  blinkSpeaking: '/assets/charA-blink-speaking.png',
+};
+
+export const MainVideo: React.FC = () => {
+  return (
+    <AbsoluteFill>
+      <Audio src={voiceAudio} />
+      <PNGTuber
+        audioSrc={voiceAudio}
+        characterDef={characterA}
+        threshold={0.05}
+      />
+    </AbsoluteFill>
+  );
+};
+```

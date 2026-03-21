@@ -76,7 +76,7 @@ export const Slide06_Timeline: React.FC = () => {
         plugins: {
             legend: { display: false },
         },
-        animation: false,
+        animation: false as const,
     };
 
     return (

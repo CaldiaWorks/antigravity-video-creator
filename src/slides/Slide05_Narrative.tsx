@@ -60,7 +60,7 @@ export const Slide05_Narrative: React.FC = () => {
                 labels: { font: { size: 18 } }
             },
         },
-        animation: false,
+        animation: false as const,
     };
 
     return (

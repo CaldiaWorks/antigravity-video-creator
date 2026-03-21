@@ -36,6 +36,7 @@ Read individual rule files for detailed explanations and code examples:
 - [rules/measuring-dom-nodes.md](rules/measuring-dom-nodes.md) - Measuring DOM element dimensions in Remotion
 - [rules/measuring-text.md](rules/measuring-text.md) - Measuring text dimensions, fitting text to containers, and checking overflow
 - [rules/sequencing.md](rules/sequencing.md) - Sequencing patterns for Remotion - delay, trim, limit duration of items
+- [rules/svg-animations.md](rules/svg-animations.md) - SVG animation patterns for Remotion - rotate, translate, scale, stroke-dasharray
 - [rules/tailwind.md](rules/tailwind.md) - Using TailwindCSS in Remotion
 - [rules/text-animations.md](rules/text-animations.md) - Typography and text animation patterns for Remotion
 - [rules/timing.md](rules/timing.md) - Interpolation curves in Remotion - linear, easing, spring animations

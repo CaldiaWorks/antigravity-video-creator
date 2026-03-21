@@ -25,5 +25,6 @@ export const FadeIn = () => {
 };
 ```
 
-CSS transitions or animations are FORBIDDEN - they will not render correctly.  
-Tailwind animation class names are FORBIDDEN - they will not render correctly.  
+CSS transitions or animations are FORBIDDEN - they will not render correctly.
+Tailwind animation class names are FORBIDDEN - they will not render correctly.
+SVG native animation elements (`<animate>`, `<animateTransform>`) are FORBIDDEN - they will not render correctly. See [svg-animations.md](svg-animations.md) for frame-based alternatives.

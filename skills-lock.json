@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "skills": {
+    "branch-create": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "54fbfb78b410836ee4d21cf9ea849d0e6b8eb6da6289156114e24c259a42183e"
+    },
+    "commit": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "c860e2fe6cf149f9887255a4f3417ecff9579828982170b881ce00691351fb0d"
+    },
+    "deep-research": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "8b93639f50c831e5a6795e3fe57fa57339945dd0962999169db5bc89f785f7fb"
+    },
+    "ears": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "99c8505d0b6cd7b63d5c36870b10297587fdddff400efc29bb6f440334c62e86"
+    },
+    "en-explainer": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "afe22f7e6bcab37ba00c8c45eea17deb553ff750d6818c4b868e4fa1c53657a2"
+    },
+    "ideation": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "4230a61ca036ddcc82e82a9a81f99e79e3f348edc0f5a18afa6eebe4a8462e42"
+    },
+    "issue-create": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "a1d20eba874353ee7d43125cae3e84143e21c4f862757cb92895e80e65ece450"
+    },
+    "planning": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "351efba761d18fcf41fbd4fecfd419bef57fe1d0055170a2fb2b2ab733469b89"
+    },
+    "pull-request": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "7eaa591cc27a311b466cba4a86961971db18398f710b4123438c8388c52bed88"
+    },
+    "re-extract-requirements": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "261080e67082af14d97b6a4ff43cf707613d65dde87f6a02cfae7255889f4371"
+    },
+    "re-generate-report": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "ccac76eb681f9083c5c47114b4c34c964f71c2a819eb1bd8f35485eac1730f73"
+    },
+    "re-structure-analysis": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "63fc0e4ed0a9e989ec8ead4ac0757709292ca0d2398229f4f04a7cb4c6588d99"
+    },
+    "re-verify-logic": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "3217524f1907aa347159f7a7d9eaa2d9c808193ad015a8934a483315e644c1f5"
+    },
+    "re-verify-report": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "561d96d505ad859ef6c2e78519eef86bf7e97d4e836c1b8797eefdb223dbf8f5"
+    },
+    "re-verify-requirements": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "87434d8ba29a3a6d1e41eaef8ad12775318e046ba406557a9d3ed33e7d2552a1"
+    },
+    "re-verify-structure": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "946b8fb35213b82410800bb17bd4a45f988e7eb7b9ddd345d8b91c01d0dfeecf"
+    },
+    "re-visualize-logic": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "c16d662835a396d0a4a78e7b9cf980644fee14387aeb8ee41316d265898e41cf"
+    },
+    "requirements-docx": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "89b9fc8cb35b2d6bad2460d975c562d2b8d355dde9e0a02531735c7aea5c232a"
+    },
+    "skill-creator": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "eb2b98378dcc2b7e2172ae70484ece695f7f552413c1508376b174827df7ebc0"
+    },
+    "skill-dev-workflow": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "92804d7cd246436902a8fdb5d22a0a4a532cdc5b8382fa330c95135b21c00fe1"
+    },
+    "usdm": {
+      "source": "caldiaworks/caldiaworks-marketplace",
+      "sourceType": "github",
+      "computedHash": "c0a28b72521d6b99de8299a8b790595cf4f3fed2064f399625592422290d1fc1"
+    }
+  }
+}
