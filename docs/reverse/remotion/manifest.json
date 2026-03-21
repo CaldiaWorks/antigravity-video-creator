@@ -1,0 +1,77 @@
+{
+  "name": "remotion",
+  "language": "typescript",
+  "created": "2026-03-21",
+  "updated": "2026-03-21",
+  "targets": {
+    "entry_points": ["src/index.ts"],
+    "classes": [],
+    "specified_by": "user"
+  },
+  "phase1": {
+    "status": "completed",
+    "output": "01-structure-map.md",
+    "verification": null,
+    "targets_for_phase2": [
+      {
+        "class": "Avatar",
+        "file": "src/components/Avatar.tsx",
+        "methods": ["AvatarRenderer"]
+      },
+      {
+        "class": "AIGovernanceVideo",
+        "file": "src/AIGovernanceVideo.tsx",
+        "methods": ["AIGovernanceVideo"]
+      }
+    ]
+  },
+  "phase2": {
+    "status": "completed",
+    "completed": [
+      {
+        "component": "Avatar",
+        "output": "02-logic-Avatar.md",
+        "verification": null
+      },
+      {
+        "component": "AIGovernanceVideo",
+        "output": "02-logic-AIGovernanceVideo.md",
+        "verification": null
+      }
+    ],
+    "remaining": [],
+    "targets_for_phase3": [
+      {
+        "component": "Avatar",
+        "logic_diagram": "02-logic-Avatar.md",
+        "source_file": "src/components/Avatar.tsx"
+      },
+      {
+        "component": "AIGovernanceVideo",
+        "logic_diagram": "02-logic-AIGovernanceVideo.md",
+        "source_file": "src/AIGovernanceVideo.tsx"
+      }
+    ]
+  },
+  "phase3": {
+    "status": "completed",
+    "completed": [
+      {
+        "component": "Avatar",
+        "output": "03-requirements-Avatar.md",
+        "verification": null
+      },
+      {
+        "component": "AIGovernanceVideo",
+        "output": "03-requirements-AIGovernanceVideo.md",
+        "verification": null
+      }
+    ],
+    "remaining": []
+  },
+  "phase4": {
+    "status": "completed",
+    "output": "04-report.md",
+    "verification": null
+  }
+}
